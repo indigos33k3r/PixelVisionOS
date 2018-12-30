@@ -218,7 +218,7 @@ end
 
 function RefreshEditor()
 
-  print("Load Text File", targetFile)
+  -- print("Load Text File", targetFile)
   local tmpText = ReadTextFile(targetFile)
 
   -- fileSize = GetFileSizeAsString(targetFile)

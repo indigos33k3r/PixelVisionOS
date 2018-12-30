@@ -247,7 +247,7 @@ function Init()
   knobData = editorUI:CreateKnob({x = 16, y = 192, w = 24, h = 24}, "knob", "Change the volume.")
   knobData.onAction = OnValueChange
   knobData.value = Volume() / 100
-  print( Volume())
+  -- print( Volume())
   -- OnValueChange()
   editorUI:Enable(knobData, not Mute())
 
@@ -648,7 +648,7 @@ function OnInputSelection(value)
 end
 
 function TriggerInputSelection(value)
-  print("On Input Selected")
+  -- print("On Input Selected")
 
   selectedInputID = value
 
@@ -668,7 +668,7 @@ function TriggerInputSelection(value)
 
   for i = 1, #inputMap do
     local field = inputFields[i]
-    print("Display Input Player " .. selectedPlayerID .. " map " .. inputMap[i] .. " value " .. ReadMetaData(inputMap[i]))
+    -- print("Display Input Player " .. selectedPlayerID .. " map " .. inputMap[i] .. " value " .. ReadMetaData(inputMap[i]))
     editorUI:ChangeInputField(field, ConvertKeyCodeToChar(tonumber(ReadMetaData(inputMap[i]))), false)
   end
 
@@ -748,7 +748,7 @@ function Update(timeDelta)
     if(editorUI.collisionManager.mouseDown == false and playSound == true) then
       PlayRawSound("0,1,,.2,,.2,.3,.1266,,,,,,,,,,,,,,,,,,1,,,,,,")
       playSound = false
-      print("Play sound")
+      -- print("Play sound")
     end
 
     -- Loop through all of the inputs and see if a controller button should be pressed

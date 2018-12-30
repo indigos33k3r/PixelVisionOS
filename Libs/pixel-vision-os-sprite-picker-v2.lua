@@ -185,7 +185,7 @@ function PixelVisionOS:CreateSpritePicker(rect, tileSize, total, totalPerPage, m
   end
 
 
-  print(name, "Start Drag value", data.dragging)
+  -- print(name, "Start Drag value", data.dragging)
 
   -- TODO testing
   -- self:DrawSpritePage(data, 1)

@@ -353,7 +353,7 @@ function EditorUI:DrawOnCanvas(data, mousePos, toolID)
 
     elseif(data.tool == "select") then
 
-      print("select", data.startPos.x, data.startPos.y)
+      -- print("select", data.startPos.x, data.startPos.y)
 
     end
 

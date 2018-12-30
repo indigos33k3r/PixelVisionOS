@@ -47,7 +47,7 @@ end
 
 function ResetDataValidation()
 
-  print("Reset Validation")
+  -- print("Reset Validation")
   -- Only everything if it needs to be
   if(invalid == false)then
     return
@@ -76,7 +76,7 @@ function Init()
 
   rootDirectory = ReadMetaData("directory", nil)
 
-  print("Root Directory", rootDirectory)
+  -- print("Root Directory", rootDirectory)
 
   -- TODO For testing, we need a path
   -- rootDirectory = "/Workspace/Games/GGSystem/"
@@ -351,7 +351,7 @@ end
 
 function OnSpritePickerDrop(src, dest)
 
-  print("On Sprite Drop")
+  -- print("On Sprite Drop")
 
   -- If the src and the dest are the same, we want to swap colors
   if(src.name == dest.name) then
@@ -375,7 +375,7 @@ function OnSpritePickerDrop(src, dest)
       -- local realDestID = destSpriteID-- + systemColorPickerData.colorOffset
 
       -- TODO need to account for the scroll offset?
-      print("Swap sprite", srcSpriteID, destSpriteID)
+      -- print("Swap sprite", srcSpriteID, destSpriteID)
 
       local srcSprite = gameEditor:Sprite(srcSpriteID)
       local destSprite = gameEditor:Sprite(destSpriteID)
@@ -477,7 +477,7 @@ end
 
 function RevertSprite()
 
-  print("Revert Sprite", originalPixelData)
+  -- print("Revert Sprite", originalPixelData)
 
   local index = pixelVisionOS:CalculateRealSpriteIndex(spritePickerData)
 
@@ -875,7 +875,7 @@ function Update(timeDelta)
         if(colorID ~= lastColorID) then
 
           if(usePalettes == true) then
-            print("colorID", colorID)
+            -- print("colorID", colorID)
           end
 
           lastColorID = colorID
@@ -904,7 +904,7 @@ function Update(timeDelta)
       pixelVisionOS:UpdateColorPicker(paletteColorPickerData)
 
       if(IsExporting()) then
-        print("Exporting", tostring(ReadExportPercent()).. "% complete.")
+        -- print("Exporting", tostring(ReadExportPercent()).. "% complete.")
         pixelVisionOS:DisplayMessage("Saving " .. tostring(ReadExportPercent()).. "% complete.", 2)
       end
 

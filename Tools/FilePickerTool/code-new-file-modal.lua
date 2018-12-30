@@ -152,7 +152,7 @@ function NewFileModal:Close()
 
   local filePath = self.currentDirectory .. self.inputField.text .. "." .. self.ext
 
-  print("Create new file", self.ext, self.inputField.text, self.currentDirectory .. self.inputField.text .. "." .. self.ext)
+  -- print("Create new file", self.ext, self.inputField.text, self.currentDirectory .. self.inputField.text .. "." .. self.ext)
 
   NewFile(filePath)
   -- Need to make sure the input field doesn't redraw so

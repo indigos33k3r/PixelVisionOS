@@ -380,7 +380,7 @@ function Init()
 end
 
 function OnPalettePickerDrop(src, dest)
-  print("Palette Picker On Drop", src.name, dest.name)
+  -- print("Palette Picker On Drop", src.name, dest.name)
 
   -- Two modes, accept colors from the system color picker or swap colors in the palette
 
@@ -405,7 +405,7 @@ function OnPalettePickerDrop(src, dest)
       -- Set the ID to the last value so it is added to the end
       id = dest.totalPerPage
 
-      print("Add Palette Color To End", id)
+      -- print("Add Palette Color To End", id)
 
       -- Update the picker's total and total per page for the new item
       dest.total = dest.total + dest.totalPages
@@ -591,7 +591,7 @@ end
 
 function AddPalettePage(data)
 
-  print("Add Palette Page")
+  -- print("Add Palette Page")
 
   -- If we are not using palettes, we need to warn the user before activating it
   if(usePalettes == false) then
@@ -604,7 +604,7 @@ function AddPalettePage(data)
 
     -- TODO need to change the pagination to look at data.total not the picker total
 
-    print("Data pre total", data.total, data.totalPerPage)
+    -- print("Data pre total", data.total, data.totalPerPage)
 
     if(data.totalPerPage == 0) then
       data.totalPerPage = gameEditor:ColorsPerSprite() + 1
@@ -614,14 +614,14 @@ function AddPalettePage(data)
     data.total = data.total + data.totalPerPage
     data.picker.total = data.totalPerPage
 
-    print("Data post total", data.total, data.totalPerPage)
+    -- print("Data post total", data.total, data.totalPerPage)
 
 
     -- When setting up a new palette, we need to copy some colors over so its not empty
 
     local totalColors = gameEditor:ColorsPerSprite()
 
-    print("Adding", totalColors, "to new palette")
+    -- print("Adding", totalColors, "to new palette")
 
     -- Loop through the page and add the first X colors to it
     for i = 1, totalColors do
@@ -629,7 +629,7 @@ function AddPalettePage(data)
       local index = i - 1
       local tmpColor = Color(pixelVisionOS.colorOffset + index)
 
-      print("New Pal Color", tmpColor)
+      -- print("New Pal Color", tmpColor)
 
       AddColorToPalette(1, i, tmpColor)
     end
@@ -766,7 +766,7 @@ function AddColorToPalette(page, id, color)
 
   local offset = (page - 1) * totalPerPage
 
-  print("Add Palette Color", page, id, color, offset)
+  -- print("Add Palette Color", page, id, color, offset)
 
   -- pixelVisionOS.paletteColors[id + offset] = color
 
@@ -780,7 +780,7 @@ end
 
 function ReplacePaletteColor(color1, color2)
 
-  print("Replace Color", color1, "with", color2)
+  -- print("Replace Color", color1, "with", color2)
 
   -- local total = #pixelVisionOS.paletteColors
   --
@@ -820,7 +820,7 @@ end
 -- end
 
 function RemovePalettePage(data)
-  print("Remove Palette Page")
+  -- print("Remove Palette Page")
 
   -- paletteColorPages = paletteColorPages - 1
   --
@@ -930,7 +930,7 @@ function OnSave()
   -- If the sprites have been re-indexed and we are using palettes we need to save the changes
   if(spritesInvalid == true) then
 
-    print("Save Sprites", usePalettes)
+    -- print("Save Sprites", usePalettes)
     if(usePalettes == true) then
 
       -- Add the color map flag
@@ -1129,7 +1129,7 @@ end
 -- Manages selecting the correct color from a picker based on a change to the color id field
 function ChangeColorID(value)
 
-  print("Change Color ID", value)
+  -- print("Change Color ID", value)
   -- Check to see what mode we are in
   if(selectionMode == SystemColorMode) then
 
@@ -1176,7 +1176,7 @@ function OnSelectSystemColor(value)
     lastSelection = value
     lastColor = colorHex
 
-    print("Update last selection value", lastSelection, lastColor )
+    -- print("Update last selection value", lastSelection, lastColor )
 
     pixelVisionOS:EnableMenuItem(RevertShortcut, true)
 

@@ -3,10 +3,10 @@
     "GameChip":
     {
         "savedData":{
-            "editing": "undefined",
-            "sessionID": "201812260859482812",
-            "rootDirectory": "/Disks/Artpacks/DragonSweeper/",
-            "selectedSprite": "0"
+            "selectedSprite": "1",
+            "rootDirectory": "/Disks/EmptyDisk/NewProject/",
+            "sessionID": "201812301543231840",
+            "editing": "undefined"
         }
     }
 }

@@ -94,7 +94,7 @@ function CollisionManager:Update(timeDelta)
     -- Capture mouse release outside of the component
     if(self.mouseReleased == true and self.currentDragSource.inFocus == false) then
 
-      print(self.currentDragSource.name, "Released Outside Focus")
+      -- print(self.currentDragSource.name, "Released Outside Focus")
 
       if(self.currentDragSource.onEndDrag ~= nil) then
         self.currentDragSource.onEndDrag(self.currentDragSource)
@@ -123,7 +123,7 @@ function CollisionManager:MouseInRect(rect)
 end
 
 function CollisionManager:StartDrag(source)
-  print(source.name, "Start Drag")
+  -- print(source.name, "Start Drag")
   self.currentDragSource = source
   self.dragTime = 0
   self.currentDragSource.dragging = true
@@ -135,7 +135,7 @@ function CollisionManager:EndDrag(source)
     return
   end
 
-  print(source.name, "End Drag", #self.dragTargets)
+  -- print(source.name, "End Drag", #self.dragTargets)
 
   self.currentDragSource.dragging = false
 
@@ -147,7 +147,7 @@ function CollisionManager:EndDrag(source)
     if(editorUI.collisionManager:MouseInRect(dest.rect)) then
 
       if(dest.onDropTarget ~= nil) then
-        print(source.name, "Drop On", dest.name)
+        -- print(source.name, "Drop On", dest.name)
         dest.onDropTarget(source, dest)
       end
 

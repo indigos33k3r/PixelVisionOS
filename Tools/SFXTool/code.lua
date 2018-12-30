@@ -284,7 +284,7 @@ function Init()
       -- TODO need to build sprite tables for each state
       data.buttonUI = editorUI:CreateButton({x = data.x, y = data.y}, data.spriteName, data.toolTip)
       data.buttonUI.onAction = function()
-        print("Click")
+        -- print("Click")
         OnSFXAction(data.name)
       end
 
@@ -293,7 +293,7 @@ function Init()
 
     waveGroupData = editorUI:CreateToggleGroup(true)
     waveGroupData.onAction = function(value)
-      print("Select Wave Button", value)
+      -- print("Select Wave Button", value)
       OnChangeWave(value)
       --TODO refresh wave buttons
       -- TODO save wave data
@@ -381,7 +381,7 @@ end
 
 function OnSFXAction(name)
 
-  print("OnSFX", name)
+  -- print("OnSFX", name)
 
   if(name == "pickup") then
     OnSoundTemplatePress(1)
@@ -469,7 +469,7 @@ function Update(timeDelta)
     -- TODO this is not working
     local playing = gameEditor:IsChannelPlaying(0)
     if(playing) then
-      print("Channel Playing", playing)
+      -- print("Channel Playing", playing)
     end
 
     -- Only play sounds when the mouse is not down
@@ -521,7 +521,7 @@ function UpdateHistory(settingsString)
   -- Update the history position to the end of the list
   historyPos = #soundHistory
 
-  print("Total History", historyPos)
+  -- print("Total History", historyPos)
 
   UpdateHistoryButtons()
 

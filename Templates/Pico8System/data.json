@@ -1,0 +1,50 @@
+{
+  "ColorChip": {
+    "pages": 1,
+    "colorsPerPage": 64,
+    "supportedColors": 16,
+    "backgroundColor": 0,
+    "transparent": "#FF00FF"
+  },
+
+  "SpriteChip": {
+    "spriteWidth": 8,
+    "spriteHeight": 8,
+    "pages": 1,
+    "cps": 16,
+    "unique": false
+  },
+  "TilemapChip": {
+    "columns": 128,
+    "rows": 64,
+    "totalFlags": 16
+  },
+  "DisplayChip": {
+    "width": 128,
+    "height": 128,
+    "overscanX": 0,
+    "overscanY": 0
+  },
+  "GameChip": {
+    "name": "Pico8System",
+    "description": "",
+    "version": "0.7.6",
+    "ext": ".pvs",
+    "lockSpecs": false,
+    "maxSize": 64,
+    "saveSlots": 8,
+    "unique":false,
+    "savedData": {
+
+    }
+  },
+  "MusicChip": {
+    "totalTracks": 4,
+    "notesPerTrack": 127,
+    "totalLoop": 32
+  },
+  "SoundChip": {
+    "totalChannels": 5,
+    "totalSounds": 32,
+  }
+}

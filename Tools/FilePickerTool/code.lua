@@ -329,13 +329,13 @@ function Init()
 
     OpenWindow(newPath, tonumber(ReadSaveData("scrollPos", "0")), tonumber(ReadSaveData("selection", "0")))
 
-    print("restore editors")
+    -- print("restore editors")
 
   end
 
   -- TODO if no editors are registered
 
-  print("Load editors")
+  -- print("Load editors")
 
 
 
@@ -416,7 +416,7 @@ end
 function OnTriggerRename(callback)
 
   -- TODO need to get the currently selected file
-  print("Rename file")
+  -- print("Rename file")
 
   if(renameModal == nil) then
     renameModal = RenameModal:Init(editorUI)
@@ -760,7 +760,7 @@ function RebuildDesktopIcons()
   local disks = DisksPaths()
 
   for k, v in pairs(disks) do
-    print(k, v)
+    -- print(k, v)
 
     table.insert(desktopIcons, {
       name = k,
@@ -895,7 +895,7 @@ function OnNewGame()
   -- TODO should see if this is defined in the bios
   local defaultTemplate = ReadBiosData("DefaultTemplate") or "/Disks/PixelVisionOS/Templates/PV8System/"
 
-  print("defaultTemplate", defaultTemplate)
+  -- print("defaultTemplate", defaultTemplate)
 
   if(currentDirectory == "none" or PathExists(defaultTemplate) == false) then
     pixelVisionOS:ShowMessageModal(toolName .. " Error", "There is no default template.", 160, false)
@@ -996,7 +996,7 @@ function OpenWindow(path, scrollTo, selection)
 
   refreshTime = 0
 
-  print("OpenWindow", path, scrollTo)
+  -- print("OpenWindow", path, scrollTo)
 
   -- Clear the previous file list
   files = {}
@@ -1044,7 +1044,7 @@ function OpenWindow(path, scrollTo, selection)
 
   -- TODO need to see if the game can be run only if there is a code file
 
-  if(runnerName == PlayVersion or runnerName == MakeVersion) then
+  if(runnerName ~= DrawVersion and runnerName ~= TuneVersion) then
 
     -- Check to see if this is a game directory
     if(pixelVisionOS:ValidateGameInDir(path) and TrashOpen() == false) then
@@ -1450,7 +1450,7 @@ function OnWindowIconClick(id)
 
   -- Enable delete option
 
-  print("Window Icon Click", tmpItem.name)
+  -- print("Window Icon Click", tmpItem.name)
   local type = tmpItem.type
 
   -- If the type is a folder, open it
@@ -1682,7 +1682,7 @@ function UpdateFileType(item, isGameFile)
 
       key = "font"
 
-      print("Found font")
+      --print("Found font")
 
     elseif(key == "sprite.png" or key == "sprites.json") then
 
@@ -1785,7 +1785,7 @@ end
 
 function Shutdown()
 
-  print("File Tool Shutdown", SessionID(), currentDirectory)
+  -- print("File Tool Shutdown", SessionID(), currentDirectory)
 
   -- Save the current session ID
   WriteSaveData("sessionID", SessionID())

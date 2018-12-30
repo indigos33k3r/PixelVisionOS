@@ -502,7 +502,7 @@ function PixelVisionOS:SelectColorPickerColor(data, value)
   -- Calculate the correct page
   local page = math.floor(value / (data.totalPerPage)) + 1
 
-  print("Page", page, value, data.totalPerPage)
+  -- print("Page", page, value, data.totalPerPage)
 
   -- Select the right page
   self:SelectColorPage(data, page)

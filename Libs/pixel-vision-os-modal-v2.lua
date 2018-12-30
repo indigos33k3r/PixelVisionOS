@@ -56,7 +56,7 @@ function PixelVisionOS:CloseModal()
 
   self.activeModal = nil
 
-  print("Modal Callback", onCloseCallback ~= nil)
+  -- print("Modal Callback", onCloseCallback ~= nil)
   -- Trigger the callback so other objects can know when the modal is closed
   if(self.onCloseCallback ~= nil) then
     self.onCloseCallback()

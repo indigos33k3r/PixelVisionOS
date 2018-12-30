@@ -1,0 +1,10 @@
+{
+    "name":"MastrSystem",
+    "description":"",
+    "version":"v0.9.0",
+    "ext":".pvs",
+    "gpuChip":"Mastr",
+    "cartChip":"Mastr",
+    "soundChip":"Mastr",
+    
+}

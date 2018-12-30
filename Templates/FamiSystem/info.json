@@ -1,0 +1,10 @@
+{
+    "name":"FamiSystem",
+    "description":"",
+    "version":"v0.9.0",
+    "ext":".pvs",
+    "gpuChip":"Fami",
+    "cartChip":"Fami",
+    "soundChip":"Fami",
+    
+}

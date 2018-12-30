@@ -8,7 +8,8 @@
         "maskColor":"#FF00FF",
         "unique":false,
         "debug":false,
-
+        "paletteMode":false,
+        
     },
     "DisplayChip":
     {
@@ -17,17 +18,13 @@
         "overscanX":1,
         "overscanY":1,
         "layers":6
-
+        
     },
     "FontChip":
     {
     },
     "GameChip":
     {
-        "name":"SystemTool",
-        "description":"",
-        "version":"v0.9.0",
-        "ext":".pv8",
         "lockSpecs":false,
         "maxSize":512,
         "saveSlots":8
@@ -43,7 +40,7 @@
         "totalChannels":5,
         "totalSounds":32
     },
-
+    
     "SpriteChip":{
         "maxSpriteCount":0,
         "unique":false,
@@ -56,8 +53,7 @@
     {
         "columns":33,
         "rows":31,
-        "totalFlags":16,
-        "autoImport":false,
-
+        "totalFlags":16"autoImport":false,
+        
     }
 }
