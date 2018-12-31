@@ -1,12 +1,12 @@
 {
-
-"GameChip":
-{
-    "savedData":{
-        "sessionID": "201812301705144473",
-        "scrollPos": "0",
-        "selection": "8",
-        "lastPath": "/Disks/EmptyDisk/NewProject/"
+    
+    "GameChip":
+    {
+        "savedData":{
+            "lastPath": "none",
+            "selection": "0",
+            "scrollPos": "0",
+            "sessionID": "201812301713081146"
+        }
     }
-}
 }
