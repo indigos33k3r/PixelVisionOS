@@ -14,7 +14,7 @@ LoadScript("pixel-vision-os-v2")
 LoadScript("pixel-vision-os-color-picker-v2")
 
 local toolName = "Image Preview"
-local toolVersion = "v2.0"
+
 
 local pixelVisionOS = nil
 local editorUI = nil
@@ -217,7 +217,7 @@ function OnImageLoaded()
   local menuOptions = 
   {
     -- About ID 1
-    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
     {divider = true},
     {name = "Save Colors", enabled = true, action = function() OnSavePNG(true, false, false) end, toolTip = "Create a 'color-map.png' file."},
     {name = "Save Sprites", enabled = true, action = function() OnSavePNG(false, true, false) end, toolTip = "Create a 'sprite.png' file."},

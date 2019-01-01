@@ -13,7 +13,7 @@ LoadScript("sb-sprites")
 LoadScript("pixel-vision-os-v2")
 
 local toolName = "Text Editor"
-local toolVersion = "v2.0"
+
 
 local pixelVisionOS = nil
 local editorUI = nil
@@ -56,7 +56,7 @@ function Init()
     local menuOptions = 
     {
       -- About ID 1
-      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
       {divider = true},
       {name = "New", action = OnNewSound, enabled = false, key = Keys.N, toolTip = "Create a new text file."}, -- Reset all the values
       {name = "Save", action = OnSave, enabled = false, key = Keys.S, toolTip = "Save changes made to the text file."}, -- Reset all the values

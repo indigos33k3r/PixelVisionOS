@@ -13,7 +13,7 @@ LoadScript("sb-sprites")
 LoadScript("pixel-vision-os-v2")
 
 local toolName = "Sound Editor"
-local toolVersion = "v2.0"
+
 
 local success = false
 local playSound = false
@@ -204,7 +204,7 @@ function Init()
     local menuOptions = 
     {
       -- About ID 1
-      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
       {divider = true},
       {name = "New", action = OnNewSound, key = Keys.N, toolTip = "Revert the sound to empty."}, -- Reset all the values
       {name = "Save", action = OnSave, key = Keys.S, toolTip = "Save changes made to the sound.json file."}, -- Reset all the values

@@ -15,7 +15,7 @@ LoadScript("sb-sprites")
 LoadScript("pixel-vision-os-v2")
 
 local toolName = "System Settings"
-local toolVersion = "v2.0"
+
 
 -- List of all the valid keys
 local keyCodeMap = {
@@ -231,7 +231,7 @@ function Init()
   local menuOptions = 
   {
     -- About ID 1
-    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
     {divider = true},
     {name = "Save", action = OnSave, enabled = false, key = Keys.S, toolTip = "Save changes made to the controller mapping."}, -- Reset all the values
     {name = "Reset", action = OnReset, key = Keys.R, toolTip = "Revert controller mapping to its default value."}, -- Reset all the values

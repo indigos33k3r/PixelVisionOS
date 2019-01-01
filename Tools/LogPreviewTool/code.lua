@@ -13,7 +13,7 @@ LoadScript("sb-sprites")
 LoadScript("pixel-vision-os-v2")
 
 local toolName = "Log Preview"
-local toolVersion = "v2.0"
+
 
 local pixelVisionOS = nil
 local editorUI = nil
@@ -28,7 +28,7 @@ local totalLines = 0
 
 function Init()
 
-  BackgroundColor(24)
+  BackgroundColor(5)
 
   -- Disable the back key in this tool
   EnableBackKey(false)
@@ -57,7 +57,7 @@ function Init()
     local menuOptions = 
     {
       -- About ID 1
-      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
       {divider = true},
       {name = "Clear", action = OnClearLog, toolTip = "Clear the log file."}, -- Reset all the values
       {divider = true},
@@ -76,7 +76,9 @@ function Init()
     inputAreaData = editorUI:CreateInputArea({x = 8, y = 24, w = 224, h = 184}, nil, "Click to edit the text.")
     inputAreaData.wrap = true
     inputAreaData.editable = false
-    -- inputAreaData.colorOffset = 32
+
+    editorUI:Enable(inputAreaData, false)
+    inputAreaData.disabledColorOffset = 0
     -- inputAreaData.onAction = function(text)
     --   -- print("input area updated")
     -- end
@@ -193,6 +195,26 @@ function Update(timeDelta)
     editorUI:UpdateSlider(hSliderData)
 
   end
+
+end
+
+function OnClearLog()
+
+
+  pixelVisionOS:ShowMessageModal("Clear Log", "Are you sure you want to clear the log? This can't be undone.", 160, true,
+    function()
+      if(pixelVisionOS.messageModal.selectionValue == true) then
+        -- Save changes
+
+        ClearLog()
+        RefreshEditor()
+
+        pixelVisionOS:EnableMenuItem(3, false)
+
+      end
+
+    end
+  )
 
 end
 

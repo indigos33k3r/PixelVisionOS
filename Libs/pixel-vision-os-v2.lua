@@ -41,7 +41,7 @@ function PixelVisionOS:Init()
   -- Create message bar instance
   _pixelVisionOS.messageBar = _pixelVisionOS:CreateMessageBar(7, 230, 60)
 
-  _pixelVisionOS.version = 2.0
+  _pixelVisionOS.version = "v2.1"
 
 
   return _pixelVisionOS
@@ -112,7 +112,7 @@ function PixelVisionOS:ShowAboutModal(toolTitle, optionalText)
 
   local message = "Copyright (c) 2018, Jesse Freeman. All rights reserved. Licensed under the Microsoft Public License (MS-PL) License.\n"
 
-  self:ShowMessageModal("About " .. toolTitle, message, 160, false)
+  self:ShowMessageModal("About " .. toolTitle .. " " .. self.version, message, 160, false)
 
 end
 

@@ -1,12 +1,12 @@
 {
-
-"GameChip":
-{
-    "savedData":{
-        "selectedSprite": "0",
-        "rootDirectory": "/Disks/ProTools/Tools/MusicTool/",
-        "sessionID": "201812301634041304",
-        "editing": "undefined"
+    
+    "GameChip":
+    {
+        "savedData":{
+            "selectedSprite": "0",
+            "rootDirectory": "/Disks/PixelVisionOS/Tools/LogPreviewTool/",
+            "sessionID": "201901011431594870",
+            "editing": "undefined"
+        }
     }
-}
 }

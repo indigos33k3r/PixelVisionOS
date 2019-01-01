@@ -215,16 +215,19 @@ function EditorUI:UpdateInputArea(data)
   -- Ready to test finer collision if needed
   if(self.collisionManager:MouseInRect(data.rect) == true or overrideFocus) then
 
-    -- Set focus
-    self:SetFocus(data, 3)
+    if(data.enabled == true) then
+      -- Set focus
+      self:SetFocus(data, 3)
 
-    if(self.collisionManager.mouseReleased == true and data.editing == false) then
+      if(self.collisionManager.mouseReleased == true and data.editing == false) then
 
-      -- print("Click to edit")
-      self:InputAreaMoveCursorToMousePos(data)
+        -- print("Click to edit")
+        self:InputAreaMoveCursorToMousePos(data)
 
-      -- Enter edit mode
-      self:EditInputArea(data, true)
+        -- Enter edit mode
+        self:EditInputArea(data, true)
+
+      end
 
     end
 
@@ -657,6 +660,10 @@ function EditorUI:GetTextAtCursor(data)
 end
 
 function EditorUI:EditInputArea(data, value)
+
+  if(data.enabled == false)then
+    return
+  end
 
 
   --TODO need to make sure all input fields are tied to the same focus logic so you can stop editing them at the same time

@@ -15,7 +15,7 @@ LoadScript("pixel-vision-os-color-picker-v2")
 LoadScript("pixel-vision-os-sprite-picker-v2")
 
 local toolName = "Color Tool"
-local toolVersion = "v2.0"
+
 local colorOffset = 0
 -- local systemColorsPerPage = 64
 local success = false
@@ -125,7 +125,7 @@ function Init()
     local menuOptions = 
     {
       -- About ID 1
-      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+      {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
       {divider = true},
       {name = "Edit Sprites", enabled = spriteEditorPath ~= nil, action = OnEditSprites, toolTip = "Open the sprite editor."},
       -- Reset all the values

@@ -17,7 +17,7 @@ LoadScript("code-icon-button")
 LoadScript("code-rename-modal")
 LoadScript("code-new-file-modal")
 
-local toolVersion = "v2.0"
+
 local toolName = "Workspace Explorer"
 
 local pixelVisionOS = nil
@@ -34,6 +34,7 @@ local shuttingDown = false
 local files = nil
 local windowIconButtons = nil
 local trashPath = "/Tmp/Trash/"
+local workspacePath = "/Workspace/"
 local refreshTime = 0
 local refreshDelay = 5
 local fileCount = 0
@@ -157,7 +158,7 @@ function Init()
   local menuOptions = 
   {
     -- About ID 1
-    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName .. " " .. toolVersion) end, toolTip = "Learn about PV8."},
+    {name = "About", action = function() pixelVisionOS:ShowAboutModal(toolName) end, toolTip = "Learn about PV8."},
     -- Settings ID 2
     {name = "Settings", action = OnLaunchSettings, toolTip = "Learn about PV8."},
     {name = "View Log", enabled = logExits, action = OnLaunchLog, toolTip = "Open up the log file."},
@@ -1175,7 +1176,9 @@ function UpdateContextMenu(inFocus)
     pixelVisionOS:EnableMenuItem(DeleteShortcut, false)
 
     -- Disk options
-    pixelVisionOS:EnableMenuItem(EjectDiskShortcut, not TrashOpen())
+    -- local canEject = not TrashOpen() and currentDirectory:sub(1, #workspacePath) == workspacePath
+
+    pixelVisionOS:EnableMenuItem(EjectDiskShortcut, CanEject())
 
     -- Special cases
 
@@ -1205,9 +1208,9 @@ function UpdateContextMenu(inFocus)
 
     -- Disk options
 
-    local canEject = (desktopIcons[desktopIconButtons.currentSelection].name ~= "Trash")
 
-    pixelVisionOS:EnableMenuItem(EjectDiskShortcut, canEject)
+
+    pixelVisionOS:EnableMenuItem(EjectDiskShortcut, CanEject())
 
 
   elseif(inFocus == WindowIconFocus) then
@@ -1420,6 +1423,24 @@ end
 function TrashOpen()
 
   return currentDirectory:sub(1, #trashPath) == trashPath
+
+end
+
+function CanEject()
+
+  local value = false
+
+  local id = desktopIconButtons.currentSelection
+
+  if(id > 0) then
+
+    local selection = desktopIcons[id]
+
+    value = selection.name ~= "Workspace" and selection.name ~= "Trash"
+
+  end
+
+  return value
 
 end
 
