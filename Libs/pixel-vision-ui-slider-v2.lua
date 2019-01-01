@@ -119,22 +119,25 @@ function EditorUI:UpdateSlider(data)
         -- Need to calculate the new x position
         local newPos = self.collisionManager.mousePos[dir] - data.handleCenter
 
-        -- Make sure the position is in range
-        if(newPos > size + data.rect[dir]) then
-          newPos = size + data.rect[dir]
-        elseif(newPos < data.rect[dir]) then
-          newPos = data.rect[dir]
+        if(newPos > - 1) then
+
+          -- Make sure the position is in range
+          if(newPos > size + data.rect[dir]) then
+            newPos = size + data.rect[dir]
+          elseif(newPos < data.rect[dir]) then
+            newPos = data.rect[dir]
+          end
+
+
+          -- Save the new position
+          data[prop] = newPos
+
+          -- Need to calculate the value
+          local percent = math.ceil(((data[prop] - data.rect[dir]) / size) * 100) / 100
+
+
+          self:ChangeSlider(data, percent)
         end
-
-        -- Save the new position
-        data[prop] = newPos
-
-        -- Need to calculate the value
-        local percent = math.ceil(((data[prop] - data.rect[dir]) / size) * 100) / 100
-
-
-        self:ChangeSlider(data, percent)
-
       end
 
     else

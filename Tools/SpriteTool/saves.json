@@ -3,10 +3,10 @@
     "GameChip":
     {
         "savedData":{
-            "selectedSprite": "0",
-            "rootDirectory": "/Disks/PixelVisionOS/Tools/LogPreviewTool/",
-            "sessionID": "201901011431594870",
-            "editing": "undefined"
+            "editing": "undefined",
+            "sessionID": "201901011509090371",
+            "rootDirectory": "/Disks/Demos/TilemapDemo/",
+            "selectedSprite": "0"
         }
     }
 }

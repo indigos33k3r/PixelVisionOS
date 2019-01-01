@@ -99,9 +99,9 @@ function PixelVisionOS:CreateTitleBar(x, y, title, product)
     0,
     4,
     8,
+    false,
+    false,
     DrawMode.Sprite,
-    false,
-    false,
     0
   }
 
@@ -251,6 +251,8 @@ function PixelVisionOS:CreateTitleBarMenu(items, toolTip)
         tmpY + pos.y,
         tmpCanvas.width,
         tmpCanvas.height,
+        false,
+        false,
         DrawMode.SpriteAbove
       }
     end
@@ -265,9 +267,9 @@ function PixelVisionOS:CreateTitleBarMenu(items, toolTip)
     pos.y,
     canvas.width,
     canvas.height,
+    false,
+    false,
     DrawMode.SpriteAbove,
-    false,
-    false,
     0
   }
 

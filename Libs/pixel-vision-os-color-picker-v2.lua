@@ -360,7 +360,7 @@ function PixelVisionOS:DrawColorPage(data, page)
         for j = 1, totalPixels do
           pixelData[j] = colorID
         end
-        DrawPixels(pixelData, x, y, tileSize.x, tileSize.y, DrawMode.TilemapCache, false, false, 0)
+        DrawPixels(pixelData, x, y, tileSize.x, tileSize.y, false, false, DrawMode.TilemapCache, 0)
       end
 
     else
@@ -401,7 +401,7 @@ function PixelVisionOS:RebuildColorPage(colors, page, colorsPerPage, rect, tileS
         pixelData[j] = colors[colorID] -- TODO need to change the offset based on the page
       end
 
-      DrawPixels(pixelData, x, y, tileSize.x, tileSize.y, DrawMode.TilemapCache, false, false, 0)
+      DrawPixels(pixelData, x, y, tileSize.x, tileSize.y, false, false, DrawMode.TilemapCache, 0)
     else
       DrawSprites(emptycolor.spriteIDs, x, y, emptycolor.width, false, false, DrawMode.TilemapCache)
     end

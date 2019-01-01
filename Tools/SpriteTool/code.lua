@@ -626,7 +626,7 @@ function OnSaveCanvasChanges()
   local tmpY = spritePickerData.picker.selectedDrawArgs[3] + spritePickerData.picker.borderOffset
 
   if(spritePickerData.picker.selected > - 1)then
-    DrawPixels(pixelData, tmpX, tmpY, canvasSize.width, canvasSize.height, DrawMode.TilemapCache)
+    DrawPixels(pixelData, tmpX, tmpY, canvasSize.width, canvasSize.height, false, false, DrawMode.TilemapCache)
   end
 
   local total = #pixelData

@@ -47,9 +47,9 @@ function PixelVisionOS:CreateSpritePicker(rect, tileSize, total, totalPerPage, m
     0,
     8,
     8,
+    false,
+    false,
     DrawMode.Sprite,
-    false,
-    false,
     self.colorOffset
   }
 
@@ -455,7 +455,7 @@ function PixelVisionOS:DrawSpritePage(data, page, startX, startY)
     x = (newX * spriteSize.w) + rect.x
     y = (newY * spriteSize.h) + rect.y
 
-    DrawPixels(pixelData, x, y, spriteSize.w, spriteSize.h, DrawMode.TilemapCache, false, false, 0)
+    DrawPixels(pixelData, x, y, spriteSize.w, spriteSize.h, false, false, DrawMode.TilemapCache, 0)
 
     if (column == (maxColumns - 1)) then
       row = row + 1
