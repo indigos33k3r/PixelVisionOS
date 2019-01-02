@@ -14,7 +14,7 @@ LoadScript("pixel-vision-os-v2")
 LoadScript("pixel-vision-os-color-picker-v2")
 
 local toolName = "Image Preview"
-
+local debugMode = false
 
 local pixelVisionOS = nil
 local editorUI = nil
@@ -96,6 +96,8 @@ function Init()
       end
     )
   end
+
+
 
 end
 
@@ -223,6 +225,8 @@ function OnImageLoaded()
     {name = "Save Sprites", enabled = true, action = function() OnSavePNG(false, true, false) end, toolTip = "Create a 'sprite.png' file."},
     {name = "Save Tilemap", enabled = true, action = function() OnSavePNG(false, false, true) end, toolTip = "Create a 'tilemap.json' file."},
     {divider = true},
+    {name = "Toggle Palette", enabled = true, action = function() debugMode = not debugMode end, toolTip = "Shows a preview of the color palette."},
+    {divider = true},
     {name = "Quit", key = Keys.Q, action = QuitCurrentTool, toolTip = "Quit the current game."}, -- Quit the current game
   }
 
@@ -263,20 +267,17 @@ function OnImageLoaded()
 
   toolLoaded = true
 
-  -- else
+  local totalColors = gameEditor:TotalColors()
 
+  colorMemoryCanvas = NewCanvas(8, totalColors / 8)
 
-  --
-  -- else
-  --
-  --   pixelVisionOS:ChangeTitle(toolName, "toolbaricontool")
-  --
-  --   pixelVisionOS:ShowMessageModal(toolName .. " Error", "The tool could not load without a reference to a file to edit.", 160, false,
-  --     function()
-  --       QuitCurrentTool()
-  --     end
-  --   )
-  -- end
+  local pixels = {}
+  for i = 1, totalColors do
+    local index = i + 255
+    table.insert(pixels, index)
+  end
+
+  colorMemoryCanvas:SetPixels(pixels)
 
 end
 
@@ -341,24 +342,14 @@ function Draw()
     -- print("Render", scrollPos.x, scrollPos.y)
     gameEditor:ScrollPosition(scrollPos.x, scrollPos.y)
 
-    -- print("Render map")
-
-    local offset = pixelVisionOS.colorOffset
     local useBG = false--bgBtnData.selected
     local bgColor = pixelVisionOS.emptyColorID
-    -- TODO force layerMode
 
-    -- Shift the colors to use the flags (which are the last 16 colors of the tilemap system colors)
-    if(layerMode == 1) then
-      offset = offset - 16
-      useBG = pixelVisionOS.emptyColorID
-      -- Clear background
-      DrawRect(viewport.x, viewport.y, viewport.w, viewport.h, pixelVisionOS.emptyColorID, DrawMode.TilemapCache)
+    gameEditor:CopyRenderToDisplay(viewport.x, viewport.y, viewport.w, viewport.h, 255, bgColor)
+
+    if(debugMode) then
+      colorMemoryCanvas:DrawPixels(8, 24, DrawMode.UI, 3)
     end
-
-    gameEditor:CopyRenderToDisplay(viewport.x, viewport.y, viewport.w, viewport.h, offset, bgColor)
-
-    ResetMapValidation()
   end
 
 

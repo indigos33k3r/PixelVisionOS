@@ -80,7 +80,7 @@ function EditorUI:CreateKnob(rect, spriteName, toolTip)
   -- -- If there is a sprite calculate the handle size
   if(spriteData ~= nil) then
 
-    data.spriteDrawArgs = {spriteData.spriteIDs, data.rect.x, data.rect.y, spriteData.width, false, false, DrawMode.Sprite, 0, false}
+    data.spriteDrawArgs = {spriteData.spriteIDs, data.rect.x, data.rect.y, spriteData.width, false, false, DrawMode.TilemapCache, 0, false}
 
   end
   -- Need to account for the correct orientation
@@ -142,6 +142,8 @@ function EditorUI:UpdateKnob(data)
 
         self:ChangeKnob(data, percent)
 
+      else
+        self:DrawKnobSprite(data)
       end
 
     else
@@ -149,6 +151,7 @@ function EditorUI:UpdateKnob(data)
       -- If the mouse is not in the rect, clear the focus
       if(data.inFocus == true and self.collisionManager.mouseDown == false) then
         self:ClearFocus(data)
+        self:DrawKnobSprite(data)
       end
 
     end
@@ -161,12 +164,32 @@ function EditorUI:UpdateKnob(data)
     data.handleX = data.handleX + (data.value * size)
     data.handleY = data.handleY + data.offset
 
+
+    self:DrawKnobSprite(data)
+    --
+    --
+    -- -- Calculate rotation
+    -- local rotationID = CalculateKnobRotationID(data)
+    --
+    -- if(rotationID < 1) then
+    --   rotationID = 1
+    -- elseif(rotationID > #data.rotation) then
+    --   rotationID = #data.rotation
+    -- end
+
+    -- Update the handle sprites
+
     -- Clear the validation
     self:ResetValidation(data)
 
   end
 
-  -- Calculate rotation
+  -- Return the slider data value
+  return data.value
+
+end
+
+function EditorUI:CalculateKnobRotationID(data)
   local rotationID = math.floor(data.value * #data.rotation)
 
   if(rotationID < 1) then
@@ -175,38 +198,22 @@ function EditorUI:UpdateKnob(data)
     rotationID = #data.rotation
   end
 
-  -- Update the handle sprites
-  local spriteData = _G[data.spriteName .. data.rotation[rotationID]] -- data.enabled == true and data.cachedSpriteData.up or data.cachedSpriteData.disabled
+  return rotationID
 
-  -- If the slider has focus, show the over state
-  -- if(data.inFocus == true) then
-  --   spriteData = data.cachedSpriteData.over
-  -- end
+end
 
-  -- TODO this should be cached an only drawn when the player is interacting with it
+function EditorUI:DrawKnobSprite(data, mode)
+
+  local spriteData = _G[data.spriteName .. data.rotation[self:CalculateKnobRotationID(data)]] -- data.enabled == true
 
   -- Make sure we have sprite data to render
   if(spriteData ~= nil and data.spriteDrawArgs ~= nil) then
 
-    -- Update the draw arguments for the sprite
-
     -- Sprite Data
     data.spriteDrawArgs[1] = spriteData.spriteIDs
 
-    -- X pos
-    -- data.spriteDrawArgs[2] = data.handleX
-    --
-    -- -- Y pos
-    -- data.spriteDrawArgs[3] = data.handleY
-
-    -- color offsets
-    -- 16 is disabled (the last color should be set to match the background the knob is on)
-    -- 20 is up
-    -- 24 is over
-
     -- Color Offset
     if(data.enabled) then
-
       data.spriteDrawArgs[8] = data.inFocus == true and 24 or 20
     else
       data.spriteDrawArgs[8] = 16
@@ -215,9 +222,6 @@ function EditorUI:UpdateKnob(data)
     self:NewDraw("DrawSprites", data.spriteDrawArgs)
 
   end
-
-  -- Return the slider data value
-  return data.value
 
 end
 

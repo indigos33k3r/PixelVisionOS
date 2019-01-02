@@ -34,49 +34,49 @@ local SoundProps = {
 
 local knobData = {
 
-  {name = "Volume", x = 40, y = 88, propID = 2, toolTip = "Volume is set to "},
+  {name = "Volume", x = 40, y = 88, propID = 2, range = 1, toolTip = "Volume is set to "},
 
   -- Envelope
-  {name = "AttackTime", x = 80, y = 88, propID = 3, toolTip = "Attack Time is set to "},
-  {name = "SustainTime", x = 104, y = 88, propID = 4, toolTip = "Sustain Time is set to "},
-  {name = "SustainPunch", x = 128, y = 88, propID = 5, toolTip = "Sustain Punch is set to "},
-  {name = "DecayTime", x = 152, y = 88, propID = 6, toolTip = "Decay Time is set to "},
+  {name = "AttackTime", x = 80, y = 88, propID = 3, range = 1, toolTip = "Attack Time is set to "},
+  {name = "SustainTime", x = 104, y = 88, propID = 4, range = 1, toolTip = "Sustain Time is set to "},
+  {name = "SustainPunch", x = 128, y = 88, propID = 5, range = 1, toolTip = "Sustain Punch is set to "},
+  {name = "DecayTime", x = 152, y = 88, propID = 6, range = 1, toolTip = "Decay Time is set to "},
 
   -- Frequency
-  {name = "StartFrequency", x = 192, y = 88, propID = 8, toolTip = "Start Frequency is set to "},
-  {name = "MinFrequency", x = 216, y = 88, propID = 9, toolTip = "Minimum Frequency is set to "},
+  {name = "StartFrequency", x = 192, y = 88, propID = 8, range = 1, toolTip = "Start Frequency is set to "},
+  {name = "MinFrequency", x = 216, y = 88, propID = 9, range = 1, toolTip = "Minimum Frequency is set to "},
 
   -- Slide
-  {name = "Slide", x = 16, y = 128, propID = 10, toolTip = "Slide is set to "},
-  {name = "DeltaSlide", x = 40, y = 128, propID = 11, toolTip = "Delta Slide is set to "},
+  {name = "Slide", x = 16, y = 128, propID = 10, range = 2, toolTip = "Slide is set to "},
+  {name = "DeltaSlide", x = 40, y = 128, propID = 11, range = 2, toolTip = "Delta Slide is set to "},
 
   -- Vibrato
-  {name = "VibratoDepth", x = 72, y = 128, propID = 12, toolTip = "Vibrato Depth is set to "},
-  {name = "VibratoSpeed", x = 96, y = 128, propID = 13, toolTip = "Vibrato Speed is set to "},
+  {name = "VibratoDepth", x = 72, y = 128, propID = 12, range = 1, toolTip = "Vibrato Depth is set to "},
+  {name = "VibratoSpeed", x = 96, y = 128, propID = 13, range = 1, toolTip = "Vibrato Speed is set to "},
 
   -- Harmonics
-  {name = "OverTones", x = 128, y = 128, propID = 14, toolTip = "Over Tones is set to "},
-  {name = "OverTonesFalloff", x = 152, y = 128, propID = 15, toolTip = "Over Tones Falloff is set to "},
+  {name = "OverTones", x = 128, y = 128, propID = 14, range = 1, toolTip = "Over Tones is set to "},
+  {name = "OverTonesFalloff", x = 152, y = 128, propID = 15, range = 1, toolTip = "Over Tones Falloff is set to "},
 
   -- Square Wave
-  {name = "SquareDuty", x = 192, y = 128, propID = 21, toolTip = "Square Duty is set to "},
-  {name = "DutySweep", x = 216, y = 128, propID = 22, toolTip = "Duty Sweep is set to "},
+  {name = "SquareDuty", x = 192, y = 128, propID = 21, range = 1, toolTip = "Square Duty is set to "},
+  {name = "DutySweep", x = 216, y = 128, propID = 22, range = 2, toolTip = "Duty Sweep is set to "},
 
   -- Phaser
-  {name = "PhaserOffset", x = 16, y = 168, propID = 24, toolTip = "Phaser Offset is set to "},
-  {name = "PhaserSweep", x = 40, y = 168, propID = 25, toolTip = "Phaser Sweep is set to "},
+  {name = "PhaserOffset", x = 16, y = 168, propID = 24, range = 2, toolTip = "Phaser Offset is set to "},
+  {name = "PhaserSweep", x = 40, y = 168, propID = 25, range = 2, toolTip = "Phaser Sweep is set to "},
 
   -- Repeat
-  {name = "RepeatSpeed", x = 72, y = 168, propID = 23, toolTip = "Repeat Speed is set to "},
+  {name = "RepeatSpeed", x = 72, y = 168, propID = 23, range = 1, toolTip = "Repeat Speed is set to "},
 
   -- LP Filter
-  {name = "LPFilterCutoff", x = 104, y = 168, propID = 26, toolTip = "LP Filter Cutoff is set to "},
-  {name = "LPFilterCutoffSweep", x = 128, y = 168, propID = 27, toolTip = "LP Filter Cutoff Sweep is set to "},
-  {name = "LPFilterResonance", x = 152, y = 168, propID = 28, toolTip = "LP Filter Resonance is set to "},
+  {name = "LPFilterCutoff", x = 104, y = 168, propID = 26, range = 1, toolTip = "LP Filter Cutoff is set to "},
+  {name = "LPFilterCutoffSweep", x = 128, y = 168, propID = 27, range = 2, toolTip = "LP Filter Cutoff Sweep is set to "},
+  {name = "LPFilterResonance", x = 152, y = 168, propID = 28, range = 1, toolTip = "LP Filter Resonance is set to "},
 
   -- HP Filter
-  {name = HPFilterCutoff, x = 192, y = 168, propID = 29, toolTip = "HP Filter Cutoff is set to "},
-  {name = HPFilterCutoffSweep, x = 216, y = 168, propID = 30, toolTip = "HP Filter Cutoff Sweep is set to "},
+  {name = HPFilterCutoff, x = 192, y = 168, propID = 29, range = 1, toolTip = "HP Filter Cutoff is set to "},
+  {name = HPFilterCutoffSweep, x = 216, y = 168, propID = 30, range = 2, toolTip = "HP Filter Cutoff Sweep is set to "},
 
 }
 
@@ -216,7 +216,7 @@ function Init()
       {name = "Paste", action = OnPasteSound, key = Keys.V, enabled = false, toolTip = "Paste the last copied sound."}, -- Reset all the values
 
       {divider = true},
-      {name = "Quit", key = Keys.Q, action = function() QuitCurrentTool() end, toolTip = "Quit the current game."}, -- Quit the current game
+      {name = "Quit", key = Keys.Q, action = OnQuit, toolTip = "Quit the current game."}, -- Quit the current game
     }
 
     pixelVisionOS:CreateTitleBarMenu(menuOptions, "See menu options for this tool.")
@@ -261,6 +261,8 @@ function Init()
         local propID = data.propID
 
         -- local percentString = string.lpad(tostring(value * 100), 3, "0") .. "%"
+
+
 
         UpdateLoadedSFX(propID, value)
 
@@ -749,8 +751,12 @@ function Refresh()
 
     UpdateKnobTooltip(knob, value)
 
+    local newValue = knob.range * value
+
+    -- print(knob.name, "value", value, "new value", newValue, "range", knob.range)
+
     -- print(knob.name, knob.knobUI, knob.propID, value)
-    editorUI:ChangeKnob(knob.knobUI, math.abs(value), false)
+    editorUI:ChangeKnob(knob.knobUI, newValue, false)
 
   end
 
@@ -785,7 +791,15 @@ function UpdateWaveButtons()
 
 end
 
+local enableSquarePanel = nil
+
 function EnableWavePanel(value)
+
+  if(enableSquarePanel == value) then
+    return
+  end
+
+  enableSquarePanel = value
 
   local spriteData = value == true and squarewavepanelenabled or squarewavepaneldisabled
 
@@ -939,5 +953,30 @@ function Shutdown()
   -- Make sure we don't save paths in the tmp directory
   WriteSaveData("currentID", currentID)
 
+
+end
+
+function OnQuit()
+
+  if(invalid == true) then
+
+    pixelVisionOS:ShowMessageModal("Unsaved Changes", "You have unsaved changes. Do you want to save your work before you quit?", 160, true,
+      function()
+        if(pixelVisionOS.messageModal.selectionValue == true) then
+          -- Save changes
+          OnSave()
+
+        end
+
+        -- Quit the tool
+        QuitCurrentTool()
+
+      end
+    )
+
+  else
+    -- Quit the tool
+    QuitCurrentTool()
+  end
 
 end

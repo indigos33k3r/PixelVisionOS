@@ -3,9 +3,9 @@
     "GameChip":
     {
         "savedData":{
-            "sessionID": "201812231102295633",
+            "rootDirectory": "/Disks/EmptyDisk/Games/",
             "currentID": "0",
-            "rootDirectory": "/Workspace/NewGame/"
+            "sessionID": "201901021833297470"
         }
     }
 }

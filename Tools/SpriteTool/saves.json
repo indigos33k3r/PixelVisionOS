@@ -3,10 +3,10 @@
     "GameChip":
     {
         "savedData":{
-            "editing": "undefined",
-            "sessionID": "201901011509090371",
-            "rootDirectory": "/Disks/Demos/TilemapDemo/",
-            "selectedSprite": "0"
+            "selectedSprite": "0",
+            "rootDirectory": "/Disks/PixelVisionOS/Tools/SFXTool/",
+            "sessionID": "201901021604566639",
+            "editing": "undefined"
         }
     }
 }

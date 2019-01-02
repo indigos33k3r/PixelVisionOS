@@ -80,6 +80,8 @@ local rootPath = ReadMetaData("RootPath", "/")
 local windowScrollHistory = {}
 
 
+local newFileModal = nil
+
 -- local editors = {
 --   colors = {name = "ColorEditor", path = rootPath .."ColorTool/"},
 --   sprites = {name = "SpriteEditor", path = rootPath .."SpriteTool/"},
@@ -146,7 +148,8 @@ function Init()
   -- Get a reference to the Editor UI
   editorUI = pixelVisionOS.editorUI
 
-
+  newFileModal = NewFileModal:Init(editorUI)
+  newFileModal.editorUI = editorUI
 
   -- Create modals
   -- messageModal = MessageModal:Init("Warning Modal", "This is a warning message which should show a lot of text in a small window on top of the main UI.", 100)
@@ -223,13 +226,13 @@ function Init()
   -- Add text options to the menu
   if(runnerName ~= PlayVersion and runnerName ~= DrawVersion and runnerName ~= TuneVersion) then
 
-    table.insert(menuOptions, addAt, {name = "New Code", action = function() OnNewFile("lua", "code") end, enabled = false, toolTip = "Run the current game."})
+    table.insert(menuOptions, addAt, {name = "New Code", action = function() OnNewFile("code", "lua") end, enabled = false, toolTip = "Run the current game."})
     menuOffset = menuOffset + 1
     NewCodeShortcut = addAt
     table.insert(newFileOptions, addAt)
     addAt = addAt + 1
 
-    table.insert(menuOptions, addAt, {name = "New JSON", action = function() OnNewFile("json", "untitled") end, enabled = false, toolTip = "Run the current game."})
+    table.insert(menuOptions, addAt, {name = "New JSON", action = function() OnNewFile("untitled", "json") end, enabled = false, toolTip = "Run the current game."})
     menuOffset = menuOffset + 1
     NewJSONShortcut = addAt
     table.insert(newFileOptions, addAt)
@@ -240,25 +243,25 @@ function Init()
   -- Add draw options
   if(runnerName ~= PlayVersion and runnerName ~= TuneVersion) then
 
-    table.insert(menuOptions, addAt, {name = "New Colors", action = function() OnNewFile("colors", "colors") end, enabled = false, toolTip = "Run the current game.", file = "colors.png"})
+    table.insert(menuOptions, addAt, {name = "New Colors", action = function() OnNewFile("colors", "png", "colors") end, enabled = false, toolTip = "Run the current game.", file = "colors.png"})
     menuOffset = menuOffset + 1
     NewColorsShortcut = addAt
     table.insert(newFileOptions, addAt)
     addAt = addAt + 1
 
-    table.insert(menuOptions, addAt, {name = "New Sprites", action = function() OnNewFile("sprites", "sprites") end, enabled = false, toolTip = "Run the current game.", file = "sprites.png"})
+    table.insert(menuOptions, addAt, {name = "New Sprites", action = function() OnNewFile("sprites", "png", "sprites") end, enabled = false, toolTip = "Run the current game.", file = "sprites.png"})
     menuOffset = menuOffset + 1
     NewSpritesShortcut = addAt
     table.insert(newFileOptions, addAt)
     addAt = addAt + 1
 
-    table.insert(menuOptions, addAt, {name = "New Font", action = function() OnNewFile("font", "untitled") end, enabled = false, toolTip = "Run the current game."})
+    table.insert(menuOptions, addAt, {name = "New Font", action = function() OnNewFile("untitled", "font.png", "font") end, enabled = false, toolTip = "Run the current game."})
     menuOffset = menuOffset + 1
     NewFontShortcut = addAt
     table.insert(newFileOptions, addAt)
     addAt = addAt + 1
 
-    table.insert(menuOptions, addAt, {name = "New Tilemap", action = function() OnNewFile("tilemap", "tilemap") end, enabled = false, toolTip = "Run the current game.", file = "tilemap.json"})
+    table.insert(menuOptions, addAt, {name = "New Tilemap", action = function() OnNewFile("tilemap", "json", "tilemap") end, enabled = false, toolTip = "Run the current game.", file = "tilemap.json"})
     menuOffset = menuOffset + 1
     NewTilemapShortcut = addAt
     table.insert(newFileOptions, addAt)
@@ -269,13 +272,13 @@ function Init()
   -- Add music options
   if(runnerName ~= PlayVersion and runnerName ~= DrawVersion) then
 
-    table.insert(menuOptions, addAt, {name = "New Sounds", action = function() OnNewFile("sounds", "sounds") end, enabled = false, toolTip = "Run the current game.", file = "sounds.json"})
+    table.insert(menuOptions, addAt, {name = "New Sounds", action = function() OnNewFile("sounds", "json", "sounds") end, enabled = false, toolTip = "Run the current game.", file = "sounds.json"})
     menuOffset = menuOffset + 1
     NewSoundsShortcut = addAt
     table.insert(newFileOptions, addAt)
     addAt = addAt + 1
 
-    table.insert(menuOptions, addAt, {name = "New Music", action = function() OnNewFile("music", "music") end, enabled = false, toolTip = "Run the current game.", file = "music.json"})
+    table.insert(menuOptions, addAt, {name = "New Music", action = function() OnNewFile("music", "json", "music") end, enabled = false, toolTip = "Run the current game.", file = "music.json"})
     menuOffset = menuOffset + 1
     NewMusicShortcut = addAt
     table.insert(newFileOptions, addAt)
@@ -378,39 +381,34 @@ function DrawWallpaper()
 
 end
 
-local newFileModal = nil
 
-function OnNewFile(ext, fileName)
+function OnNewFile(fileName, ext, type)
 
-  if(newFileModal == nil) then
-    newFileModal = NewFileModal:Init(editorUI)
-    newFileModal.editorUI = editorUI
+  if(type == nil) then
+    type = ext
   end
+  --
+  -- if(newFileModal == nil) then
+  --
+  -- end
 
-  -- TODO need to get the filename for the currently selected file
-  local text = fileName or "untitled"
-  local description = "You are creating a new ".. ext .. " file."
-
-  newFileModal.currentDirectory = currentDirectory
-  newFileModal.ext = ext
-
-  if(ext == "colors" or ext == "sprites") then
-    newFileModal.ext = "png"
-  elseif (ext == "font") then
-    newFileModal.ext = "font.png"
-  elseif(ext == "sounds" or ext == "music" or ext == "tilemap") then
-    newFileModal.ext = "json"
-  end
-
-  newFileModal:SetText("New ".. ext, text, description)
+  newFileModal:SetText("New ".. type, fileName, "Name " .. type .. " file")
 
   pixelVisionOS:OpenModal(newFileModal,
     function()
 
+      if(newFileModal.selectionValue == false) then
+        return
+      end
+
+      local filePath = currentDirectory .. newFileModal.inputField.text .. "." .. ext
+
+      NewFile(filePath)
       RefreshWindow()
 
     end
   )
+
 
 end
 
@@ -425,7 +423,7 @@ function OnTriggerRename(callback)
   end
 
   -- TODO need to get the filename for the currently selected file
-  local text = "Untitled"
+  -- local text = "Untitled"
 
   pixelVisionOS:OpenModal(renameModal, OnRenameFile)
 
@@ -903,52 +901,76 @@ function OnNewGame()
     return
   end
 
-  local newPath = UniqueFilePath(currentDirectory .. "NewProject/")
-  --
-  local success = NewFolder(newPath)
 
-  if(success == true) then
 
-    local files = GetDirectoryContents(defaultTemplate)
+  newFileModal:SetText("New Project", "NewProject", "Folder Name")
 
-    for i = 1, #files do
-      CopyFile(files[i].path, newPath)
+  pixelVisionOS:OpenModal(newFileModal,
+    function()
+
+      if(newFileModal.selectionValue == false) then
+        return
+      end
+
+      local newPath = UniqueFilePath(currentDirectory .. "NewProject/")
+      --
+      local success = NewFolder(newPath)
+
+      if(success == true) then
+
+        local files = GetDirectoryContents(defaultTemplate)
+
+        for i = 1, #files do
+          CopyFile(files[i].path, newPath)
+        end
+
+        -- TODO need a way to select the new game and find its scroll option
+        OpenWindow(currentDirectory, scrollTo, selection)
+
+      else
+        pixelVisionOS:DisplayMessage("Failed to create a new game", 5)
+      end
+
     end
+  )
 
-    -- TODO need a way to select the new game and find its scroll option
-    OpenWindow(currentDirectory, scrollTo, selection)
-
-  else
-    pixelVisionOS:DisplayMessage("Failed to create a new game", 5)
-  end
 
 end
 
 function OnNewFolder(name)
 
-  name = name or "Untitled"
-
   if(currentDirectory == "none") then
     return
   end
 
-  local newPath = currentDirectory
-
-  local success = NewFolder(currentDirectory .. name .. "/")
-
-  if(success == true) then
-
-    -- The new folder should be selected which is the last item of the previuos file list
-    local selection = #files + 1
-
-    -- TODO need to calculate where to scroll to based on the selection ID
-    local scrollTo = 0
-
-    -- Force the window to reopen and load the files
-    OpenWindow(currentDirectory, scrollTo, selection)
-  else
-    pixelVisionOS:DisplayMessage("Failed to create a new folder", 5)
+  if(name == nil) then
+    name = "Untitled"
   end
+
+  -- if(newFileModal == nil) then
+  --   newFileModal = NewFileModal:Init(editorUI)
+  --   newFileModal.editorUI = editorUI
+  -- end
+
+  newFileModal:SetText("New Folder", name, "Folder Name")
+
+  pixelVisionOS:OpenModal(newFileModal,
+    function()
+
+      if(newFileModal.selectionValue == false) then
+        return
+      end
+
+      local filePath = currentDirectory .. newFileModal.inputField.text
+
+      NewFolder(filePath.."/")
+
+      RefreshWindow()
+
+    end
+  )
+
+
 
 end
 
