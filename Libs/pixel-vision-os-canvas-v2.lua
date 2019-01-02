@@ -389,11 +389,11 @@ function EditorUI:RedrawCanvas(data)
   end
 
   -- Draw the final canvas to the display on each frame
-  data.paintCanvas:DrawPixels(data.rect.x, data.rect.y, false, false, DrawMode.TilemapCache, data.scale)
+  data.paintCanvas:DrawPixels(data.rect.x, data.rect.y, DrawMode.TilemapCache, data.scale)
 
   if(data.tmpPaintCanvas.invalid == true) then
     -- Draw the tmp layer on top of everything since it has the active drawing's pixel data
-    data.tmpPaintCanvas:DrawPixels(data.rect.x, data.rect.y, false, false, DrawMode.TilemapCache, data.scale)
+    data.tmpPaintCanvas:DrawPixels(data.rect.x, data.rect.y, DrawMode.TilemapCache, data.scale)
 
 
   end

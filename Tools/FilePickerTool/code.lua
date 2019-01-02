@@ -997,6 +997,7 @@ function OpenWindow(path, scrollTo, selection)
 
   refreshTime = 0
 
+
   -- print("OpenWindow", path, scrollTo)
 
   -- Clear the previous file list
@@ -1353,6 +1354,27 @@ function ChangeWindowTitle(pathTitle, titleIconName)
 
   DrawText(pathTitle:upper(), 19, 17, DrawMode.TilemapCache, "medium", 15, - 4)
 
+  -- Look for desktop icon
+  -- TODO make sure the correct desktop item is highlighted
+  local pathSplit = string.split(pathTitle, "/")
+
+  local desktopIconName = pathSplit[1]
+
+  local iconID = -1
+
+  for i = 1, #desktopIcons do
+    if(desktopIcons[i].name == desktopIconName) then
+      iconID = i
+      break
+    end
+  end
+
+  -- Try to find the icon button if we open a window and its not selected beforehand
+  if(currentOpenIconButton == nil and iconID > 0) then
+    currentOpenIconButton = desktopIconButtons.buttons[iconID]
+
+    editorUI:OpenIconButton(currentOpenIconButton)
+  end
 end
 
 function CloseWindow()

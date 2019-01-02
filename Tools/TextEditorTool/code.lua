@@ -28,7 +28,7 @@ local totalLines = 0
 
 function Init()
 
-  BackgroundColor(24)
+  BackgroundColor(5)
 
   -- Disable the back key in this tool
   EnableBackKey(false)
