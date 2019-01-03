@@ -109,9 +109,9 @@ local waveButtonData = {
 local controlButtonData = {
   {name = "Play", spriteName = "playbutton", x = 8, y = 16, toolTip = "Play the current sound.", action = function() OnPlaySound() end},
   {name = "Stop", spriteName = "stopbutton", x = 24, y = 16, toolTip = "Stop the currently playing sound.", action = function() OnStopSound() end},
-  {name = "Undo", spriteName = "undobutton", x = 48, y = 16, toolTip = "Undo the last SFX value change.", action = function() OnHistoryBack() end},
-  {name = "Mutate", spriteName = "mutatebutton", x = 64, y = 16, toolTip = "Undo the last SFX value change.", action = function() OnMutate() end},
-  {name = "Redo", spriteName = "redobutton", x = 80, y = 16, toolTip = "Redo the last SFX value change.", action = function() OnHistoryNext() end},
+  {name = "Mutate", spriteName = "mutatebutton", x = 48, y = 16, toolTip = "Undo the last SFX value change.", action = function() OnMutate() end},
+  {name = "Undo", spriteName = "undobutton", x = 64, y = 16, toolTip = "Undo the last SFX value change.", action = function() OnUndo() end},
+  {name = "Redo", spriteName = "redobutton", x = 80, y = 16, toolTip = "Redo the last SFX value change.", action = function() OnRedo() end},
 }
 
 local currentID = 0
@@ -159,8 +159,12 @@ function Init()
   -- Create an instance of the Pixel Vision OS
   pixelVisionOS = PixelVisionOS:Init()
 
+  -- Reset the undo history so it's ready for the tool
+  pixelVisionOS:ResetUndoHistory()
+
   -- Get a reference to the Editor UI
   editorUI = pixelVisionOS.editorUI
+
 
   rootDirectory = ReadMetaData("directory", nil)
 
@@ -330,7 +334,7 @@ function Init()
       currentID = tonumber(ReadSaveData("currentID", "0"))
     end
 
-    LoadSound(currentID)
+    LoadSound(currentID, true, false)
 
     ResetDataValidation()
 
@@ -484,7 +488,7 @@ function Update(timeDelta)
 
 end
 
-function ApplySoundChanges(autoPlay)
+function ApplySoundChanges(autoPlay, saveHistory)
 
   -- Save sound changes
   local settingsString = ""
@@ -504,7 +508,9 @@ function ApplySoundChanges(autoPlay)
   gameEditor:Sound(id, settingsString)
   InvalidateData()
 
-  UpdateHistory(soundHistory)
+  if(saveHistory ~= false) then
+    UpdateHistory(settingsString)
+  end
 
   if(autoPlay ~= false) then
     OnPlaySound()
@@ -514,14 +520,23 @@ end
 
 function UpdateHistory(settingsString)
 
+  local historyAction = {
+    sound = settingsString,
+    Action = function()
+      UpdateSound(settingsString, true, false)
+    end
+  }
+
+  pixelVisionOS:Add(historyAction)
+
   -- TODO need to see where the historyPos is and remove any values after that index
   -- TODO need to see what the total history is and remove values from the beginning of the list to make room for the new setting value
 
   -- Insert the settingsString at the end of the list
-  table.insert(soundHistory, settingsString)
-
-  -- Update the history position to the end of the list
-  historyPos = #soundHistory
+  -- table.insert(soundHistory, settingsString)
+  --
+  -- -- Update the history position to the end of the list
+  -- historyPos = #soundHistory
 
   -- print("Total History", historyPos)
 
@@ -529,37 +544,46 @@ function UpdateHistory(settingsString)
 
 end
 
-local historyPos = 1
+-- local historyPos = 1
 
-function OnHistoryBack()
-  -- if(historyPos > 1) then
-  OnPageChange(historyPos - 1)
-  -- end
+function OnUndo()
 
-end
+  local action = pixelVisionOS:Undo()
 
-function OnHistoryNext()
-  -- if(historyPos < #soundHistory) then
-  OnPageChange(historyPos + 1)
-  -- end
-end
-
-function OnRestoreSoundHistory(value)
-
-  if(historyPos < 1) then
-    historyPos = 1
-  elseif(historyPos > #soundHistory) then
-    historyPos = #soundHistory
+  if(action ~= nil and action.Action ~= nil) then
+    action.Action()
   end
 
   UpdateHistoryButtons()
-
 end
+
+function OnRedo()
+
+  local action = pixelVisionOS:Redo()
+
+  if(action ~= nil and action.Action ~= nil) then
+    action.Action()
+  end
+
+  UpdateHistoryButtons()
+end
+
+-- function OnRestoreSoundHistory(value)
+--
+--   if(historyPos < 1) then
+--     historyPos = 1
+--   elseif(historyPos > #soundHistory) then
+--     historyPos = #soundHistory
+--   end
+--
+--   UpdateHistoryButtons()
+--
+-- end
 
 function UpdateHistoryButtons()
 
-  editorUI:Enable(controlButtonData[3].buttonUI, historyPos < #soundHistory and historyPos > 1)
-  editorUI:Enable(controlButtonData[5].buttonUI, historyPos ~= #soundHistory)
+  editorUI:Enable(controlButtonData[4].buttonUI, pixelVisionOS:IsUndoable())
+  editorUI:Enable(controlButtonData[5].buttonUI, pixelVisionOS:IsRedoable())
 
 end
 
@@ -605,7 +629,7 @@ function OnSoundTemplatePress(value)
   local id = CurrentSoundID()
 
   -- Reload the sound data
-  LoadSound(id, false)
+  LoadSound(id)
 
   InvalidateData()
 end
@@ -663,7 +687,7 @@ function OnInstrumentTemplatePress(value)
 
 end
 
-function UpdateSound(settings, autoPlay)
+function UpdateSound(settings, autoPlay, addToHistory)
   local id = CurrentSoundID()
 
   gameEditor:Sound(id, settings)
@@ -673,7 +697,7 @@ function UpdateSound(settings, autoPlay)
   end
 
   -- Reload the sound data
-  LoadSound(id, false)
+  LoadSound(id, false, addToHistory)
 
 
   InvalidateData()
@@ -690,12 +714,12 @@ function OnChangeSoundID(text)
   editorUI:Enable(nextBtnData, value < soundIDFieldData.max)
 
   -- Load the sound into the editor
-  LoadSound(value)
+  LoadSound(value, true, false)
 
 end
 
-function LoadSound(value, clearHistory)
-
+function LoadSound(value, clearHistory, updateHistory)
+  -- print("Load Sound Clear", clearHistory)
   currentID = value
 
   -- Load the current sounds string data so we can edit it
@@ -731,13 +755,17 @@ function LoadSound(value, clearHistory)
   editorUI:ChangeInputField(songNameFieldData, label, false)
   editorUI:ChangeInputField(soundIDFieldData, currentID, false)
 
-  if(clearHistory ~= false) then
-    historyPos = 1
-    soundHistory = {}
-    OnRestoreSoundHistory(1)
+  if(clearHistory == true) then
+    -- Reset the undo history so it's ready for the tool
+    pixelVisionOS:ResetUndoHistory()
+    UpdateHistoryButtons()
   end
 
-  UpdateHistory(data)
+  if(updateHistory ~= false) then
+    UpdateHistory(data)
+  end
+
+
 
   -- TODO need to refresh the editor panels
 end
