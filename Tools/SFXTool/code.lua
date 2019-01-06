@@ -527,18 +527,7 @@ function UpdateHistory(settingsString)
     end
   }
 
-  pixelVisionOS:Add(historyAction)
-
-  -- TODO need to see where the historyPos is and remove any values after that index
-  -- TODO need to see what the total history is and remove values from the beginning of the list to make room for the new setting value
-
-  -- Insert the settingsString at the end of the list
-  -- table.insert(soundHistory, settingsString)
-  --
-  -- -- Update the history position to the end of the list
-  -- historyPos = #soundHistory
-
-  -- print("Total History", historyPos)
+  pixelVisionOS:AddUndoHistory(historyAction)
 
   UpdateHistoryButtons()
 

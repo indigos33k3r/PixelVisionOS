@@ -102,7 +102,7 @@ end
 
 function EditorUI:UpdateStepperButtons(data, value, min, max)
 
-  if(data == nil or value == nil) then
+  if(data == nil or value == nil or data.enabled == false) then
     return
   end
 
@@ -115,6 +115,7 @@ end
 
 function EditorUI:EnableStepper(data, value)
 
+  editorUI:Enable(data, value)
   editorUI:Enable(data.backButton, value)
   editorUI:Enable(data.inputField, value)
   editorUI:Enable(data.nextButton, value)

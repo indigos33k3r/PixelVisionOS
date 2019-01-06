@@ -17,10 +17,6 @@
 
 function EditorUI:CreateInputField(rect, text, toolTip, pattern, font, forceDraw)
 
-  -- local spriteSize = SpriteSize()
-
-  -- local data = self:CreateData(flag, x, y, toolTip, forceDraw)
-
   -- If no hight is provided, simply make the height one row high
   if(rect.h == nil) then
     rect.h = self.spriteSize.y
@@ -37,7 +33,8 @@ function EditorUI:CreateInputField(rect, text, toolTip, pattern, font, forceDraw
   data.previousField = nil
   data.clearValue = ""
   data.clearOnEnter = false
-
+  data.allowEmptyString = false
+  data.forceCase = nil -- Accepts nil, upper and lower
   -- override key callbacks for input fields
 
   data.onTab = function(data)
@@ -170,57 +167,6 @@ function EditorUI:UpdateInputField(data)
 
   end
 
-  -- if(data.editing == true) then
-  --
-  --   if(self.collisionManager.mouseReleased == true and data.inFocus == false) then
-  --
-  --     self:EditInputField(data, false)
-  --   elseif(self.collisionManager.mouseReleased == true) then
-  --
-  --     self:InputAreaMoveCursorToMousePos(data)
-  --
-  --   else
-  --     local lastInput = data.captureInput()
-  --
-  --     if(lastInput ~= "") then
-  --
-  --       self:InputAreaOnInput(data, lastInput)
-  --
-  --     end
-  --
-  --     -- if we are in edit mode, we need to update the cursor blink time
-  --     data.blinkTime = data.blinkTime + self.timeDelta
-  --
-  --     if(data.blinkTime > data.blinkDelay) then
-  --       data.blinkTime = 0
-  --       data.blink = not data.blink
-  --
-  --       --print("Blink")
-  --     end
-  --
-  --     -- TODO need to add in logic to support dragging, selection, etc.
-  --
-  --     -- -- While in edit mode, check to see if the mouse is pressed
-  --     -- if(MouseButton(0, InputState.Released)) then
-  --     --
-  --     --   -- Check to see if the mouse is outside of the text area
-  --     --   if(self.collisionManager.hovered ~= data.flagID) then
-  --     --
-  --     --     -- Exit edit mode
-  --     --     self:EditInputField(data, false)
-  --     --
-  --     --     -- If the mouse is still inside of the input area
-  --     --   else
-  --     --
-  --     --     -- Update the mouse cursor
-  --     --     self:InputAreaMoveCursorToMousePos(data)
-  --
-  --   end
-  --
-  -- end
-
-  -- end
-
   self:DrawInputArea(data)
 
 end
@@ -231,6 +177,10 @@ function EditorUI:InputFieldInsertChar(data, char)
 
   if(pattern ~= nil) then
     char = string.match(char, pattern)
+  end
+
+  if(data.forceCase ~= nil) then
+    char = string[data.forceCase](char)
   end
 
   if(char ~= nil) then
@@ -282,7 +232,15 @@ function EditorUI:EditInputField(data, value)
 
     data.blink = false
 
-    local newText = data.lines[1] == "" and data.defaultValue or data.lines[1]
+    local newText = data.lines[1]
+
+    if(newText == "" and data.allowEmptyString == false) then
+
+      newText = data.defaultValue
+
+    end
+
+    -- local newText = data.lines[1] == "" and data.defaultValue or data.lines[1]
 
     self:ChangeInputField(data, newText)
 

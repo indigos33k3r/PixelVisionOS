@@ -24,14 +24,14 @@ function PixelVisionOS:ResetUndoHistory()
 end
 
 -- push object to top of undo stack
-function PixelVisionOS:Add(o)
+function PixelVisionOS:AddUndoHistory(o)
   self.undos[#self.undos + 1] = o
   self.redos = {}
 end
 
 -- pop top-most object from undo stack and save it to redo stack
 -- return the object, or nil if nothing to undo
-function PixelVisionOS:Delete()
+function PixelVisionOS:DeleteUndoHistory()
   if #self.undos >= 1 then
     local o = self.undos[#self.undos]
     self.undos[#self.undos] = nil
@@ -54,7 +54,7 @@ end
 
 -- undo last operation at top of stack, execute Undo() if available
 function PixelVisionOS:Undo()
-  local o = self:Delete()
+  local o = self:DeleteUndoHistory()
 
   return o
 end
