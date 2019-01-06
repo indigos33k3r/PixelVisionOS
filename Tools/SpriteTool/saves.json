@@ -1,12 +1,1 @@
-{
-    
-    "GameChip":
-    {
-        "savedData":{
-            "selectedSprite": "0",
-            "rootDirectory": "/Disks/ProTools/Tools/MusicTool/",
-            "sessionID": "201901022010083776",
-            "editing": "undefined"
-        }
-    }
-}
+{"GameChip":{"savedData":{"editing": "undefined","sessionID": "201901051912184747","rootDirectory": "/Disks/EmptyDisk/TestProject/","selectedSprite": "0"}}}

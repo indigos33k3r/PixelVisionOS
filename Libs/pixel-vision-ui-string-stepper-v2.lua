@@ -105,7 +105,7 @@ end
 
 function EditorUI:ChangeStringStepperValue(data, value, action, updateButtons)
 
-  self:ChangeInputField(data.inputField, tostring(value), action)
+  self:ChangeInputField(data.inputField, value, action)
 
   -- TODO need to find the value
   if(updateButtons ~= false) then

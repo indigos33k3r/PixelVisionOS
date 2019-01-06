@@ -96,7 +96,15 @@ function EditorUI:ChangeNumberStepperValue(data, value, action, updateButtons)
 
 end
 
+function EditorUI:GetNumberStepperValue(data)
+  return tonumber(data.inputField.text)
+end
+
 function EditorUI:UpdateStepperButtons(data, value, min, max)
+
+  if(data == nil or value == nil) then
+    return
+  end
 
   self:Enable(data.backButton, value > min)
   self:Enable(data.nextButton, value < max)

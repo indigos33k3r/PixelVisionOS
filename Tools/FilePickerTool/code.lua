@@ -912,7 +912,7 @@ function OnNewGame()
         return
       end
 
-      local newPath = UniqueFilePath(currentDirectory .. "NewProject/")
+      local newPath = UniqueFilePath(currentDirectory .. newFileModal.inputField.text .. "/")
       --
       local success = NewFolder(newPath)
 
